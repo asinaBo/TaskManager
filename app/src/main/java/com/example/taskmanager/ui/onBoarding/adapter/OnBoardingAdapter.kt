@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.taskmanager.R
 import com.example.taskmanager.databinding.ItemOnBoardingBinding
+import com.example.taskmanager.extension.loadImage
 import com.example.taskmanager.model.OnBoarding
 
 class OnBoardingAdapter(private val onClick:()->Unit) : Adapter<OnBoardingAdapter.OnBoardingViewHolder>(){
@@ -15,13 +16,10 @@ class OnBoardingAdapter(private val onClick:()->Unit) : Adapter<OnBoardingAdapte
 
     private val data = arrayListOf<OnBoarding>(
 
-        OnBoarding("test 1 ", "Desc 1",""),
-        OnBoarding("test 2 ", "Desc 2", ""),
-        OnBoarding("test 3 ", "Desc 3", "")
+        OnBoarding("Ready to travel ", "Choose your destination,plan your tour,select the tours","https://www.pngall.com/wp-content/uploads/8/World-Travel-PNG-Clipart.png"),
+        OnBoarding("Shcedule your trip", "Select the data of trip and make task to do according the schedule", "https://i.pinimg.com/originals/47/38/f4/4738f4e1f2a0217f26495b7a8de5d564.png"),
+        OnBoarding("Enjoy your trip ", "Lets enjoy your trip with ready tasks", "https://e7.pngegg.com/pngimages/463/327/png-clipart-car-travel-road-trip-illustration-travel-traveling-by-car-car-accident-backpack-thumbnail.png")
     )
-
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnBoardingViewHolder {
         return OnBoardingViewHolder(
@@ -31,11 +29,8 @@ class OnBoardingAdapter(private val onClick:()->Unit) : Adapter<OnBoardingAdapte
                 false
 
             )
-
         )
     }
-
-
 
     override fun onBindViewHolder(holder: OnBoardingViewHolder, position: Int) {
        holder.bind(data.get(position))
@@ -48,13 +43,7 @@ class OnBoardingAdapter(private val onClick:()->Unit) : Adapter<OnBoardingAdapte
         fun bind(onBoarding: OnBoarding){
             binding.tvTitle.text = onBoarding.title
             binding.tvDesc.text = onBoarding.desc
-           //var url = ""
-          // Glide.with(this)
-              // .load(url)
-              // .fitCenter()
-              // .into(binding.ivBoard)
-
-
+            onBoarding.image?.let { binding.ivBoard.loadImage(it)}
             binding.btnStart.isVisible= adapterPosition==data.lastIndex
             binding.skip.isVisible= adapterPosition!=data.lastIndex
             binding.btnStart.setOnClickListener {
@@ -63,9 +52,6 @@ class OnBoardingAdapter(private val onClick:()->Unit) : Adapter<OnBoardingAdapte
             binding.skip.setOnClickListener {
                 onClick()
             }
-
-
         }
-
     }
 }

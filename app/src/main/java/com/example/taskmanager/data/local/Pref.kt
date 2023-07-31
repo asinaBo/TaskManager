@@ -10,8 +10,6 @@ import android.content.SharedPreferences
 class Pref(private val context: Context) {
 
     private val pref = context.getSharedPreferences(PREF_NAME,MODE_PRIVATE)
-    //var editor: SharedPreferences.Editor = pref.edit()
-
 
     fun isOnBoardingShow():Boolean{
         return pref.getBoolean(SHOWED_KEY, false)
@@ -24,25 +22,17 @@ class Pref(private val context: Context) {
     fun saveName(name:String){
         pref.edit().putString(NAME_KEY,name).apply()
 
-
     }
     fun getName(): String?{
         return pref.getString(NAME_KEY, null)
-
     }
     fun saveImage(name:String){
         pref.edit().putString(IMAGE_KEY,name).apply()
-
-
     }
     fun getImage(): String?{
         return pref.getString(IMAGE_KEY, null)
 
     }
-
-
-
-
 
     companion object{
         const val PREF_NAME="pref.name"
