@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.taskmanager.App
@@ -13,11 +14,12 @@ import com.example.taskmanager.R
 import com.example.taskmanager.databinding.FragmentHomeBinding
 import com.example.taskmanager.model.Task
 import com.example.taskmanager.ui.task.adapter.TaskAdapter
+import com.example.taskmanager.utils.extension.showToas
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),TaskAdapter.Listener {
 
     private var _binding: FragmentHomeBinding? = null
-    private val adapter = TaskAdapter(this::onClickItem)
+    private var adapter = TaskAdapter(this@HomeFragment)
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -34,14 +36,23 @@ class HomeFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         val data = App.db.taskDao().getAll()
         adapter.addTasks(data)
+        adapter.changecolor = true
+        adapter.notifyDataSetChanged()
 
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.taskFragment)
         }
     }
 
-    private fun onClickItem(task: Task) {
+    override fun onLongClickItem(task: Task) {
         deleteItem(task)
+    }
+
+
+    override fun onClickItem(task: Task) {
+        findNavController().navigate(R.id.taskFragment, bundleOf(TASK_KEY to task))
+
+
     }
 
     private fun deleteItem(task: Task) {
@@ -52,7 +63,6 @@ class HomeFragment : Fragment() {
             App.db.taskDao().delete(task)
             val data = App.db.taskDao().getAll()
             adapter.addTasks(data)
-
             Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
         }
         alertBuilder.setNeutralButton("Cancel")
@@ -61,6 +71,9 @@ class HomeFragment : Fragment() {
         alertBuilder.show()
     }
 
+    companion object{
+        const val TASK_KEY = " task.key"
+    }
 }
 
 

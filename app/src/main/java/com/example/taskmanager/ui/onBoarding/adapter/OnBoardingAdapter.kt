@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.taskmanager.R
 import com.example.taskmanager.databinding.ItemOnBoardingBinding
-import com.example.taskmanager.extension.loadImage
+import com.example.taskmanager.utils.extension.loadImage
 import com.example.taskmanager.model.OnBoarding
 
 class OnBoardingAdapter(private val onClick:()->Unit) : Adapter<OnBoardingAdapter.OnBoardingViewHolder>(){
 
 
-    private val data = arrayListOf<OnBoarding>(
+    private val data = arrayListOf(
 
         OnBoarding("Ready to travel ", "Choose your destination,plan your tour,select the tours","https://www.pngall.com/wp-content/uploads/8/World-Travel-PNG-Clipart.png"),
         OnBoarding("Shcedule your trip", "Select the data of trip and make task to do according the schedule", "https://i.pinimg.com/originals/47/38/f4/4738f4e1f2a0217f26495b7a8de5d564.png"),
@@ -27,7 +27,6 @@ class OnBoardingAdapter(private val onClick:()->Unit) : Adapter<OnBoardingAdapte
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-
             )
         )
     }

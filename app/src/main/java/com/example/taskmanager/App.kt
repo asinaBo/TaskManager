@@ -13,7 +13,6 @@ class App: Application() {
             AppDatabase::class.java, "database-name"
         ).allowMainThreadQueries().build()
     }
-
     companion object{
         lateinit var db: AppDatabase
     }

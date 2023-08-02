@@ -14,7 +14,7 @@ import androidx.core.widget.addTextChangedListener
 import com.example.taskmanager.R
 import com.example.taskmanager.data.local.Pref
 import com.example.taskmanager.databinding.FragmentProfileBinding
-import com.example.taskmanager.extension.loadImage
+import com.example.taskmanager.utils.extension.loadImage
 import com.github.dhaval2404.imagepicker.ImagePicker
 
 
