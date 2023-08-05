@@ -14,7 +14,7 @@ import com.example.taskmanager.R
 import com.example.taskmanager.databinding.FragmentTaskBinding
 import com.example.taskmanager.model.Task
 import com.example.taskmanager.ui.home.HomeFragment.Companion.TASK_KEY
-import com.example.taskmanager.utils.extension.isEmpty
+
 
 class TaskFragment : Fragment() {
 
@@ -37,13 +37,14 @@ class TaskFragment : Fragment() {
             etDesc.setText(task?.desc.toString())
             btnSave.setText(getString(R.string.update))
         }
+
         btnSave.setOnClickListener {
+            if (etTitle.length() == 0 && etDesc.length() == 0) { //isNullorEmpty
+                etTitle.error = getString(R.string.empty_field)
+                etDesc.error = getString(R.string.empty_desc)
+                return@setOnClickListener
+            }
 
-
-            if (etTitle.length()==0 && etDesc.length()==0) {
-               etTitle.error = "Title cannot be empty"
-               etDesc.error = "Description cannot be empty"
-            } else {
             if (task == null) {
                 save()
             } else {
@@ -51,7 +52,7 @@ class TaskFragment : Fragment() {
             }
             findNavController().navigateUp()
         }
-        }
+
     }
 
     private fun update() {

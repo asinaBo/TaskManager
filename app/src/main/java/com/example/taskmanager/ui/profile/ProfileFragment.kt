@@ -2,6 +2,7 @@ package com.example.taskmanager.ui.profile
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,6 +17,9 @@ import com.example.taskmanager.data.local.Pref
 import com.example.taskmanager.databinding.FragmentProfileBinding
 import com.example.taskmanager.utils.extension.loadImage
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class ProfileFragment : Fragment() {
@@ -23,10 +27,13 @@ class ProfileFragment : Fragment() {
     private val pref: Pref by lazy {
         Pref(requireContext())
     }
+    private val auth: FirebaseAuth by lazy {
+        FirebaseAuth.getInstance()
+    }
 
     private var launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+            if (result.resultCode == RESULT_OK && result.data != null) {
                 val imageUri = result.data?.data
                 pref.saveImage(imageUri.toString())
                 binding.profileImage.loadImage(imageUri.toString())
@@ -58,5 +65,23 @@ class ProfileFragment : Fragment() {
             launcher.launch(intent)
 
         }
+        binding.btnExit.setOnClickListener {
+            val alertBuilder = AlertDialog.Builder(requireContext())
+            alertBuilder.setTitle(getString(R.string.exit))
+            alertBuilder.setMessage(getString(R.string.exit_msg))
+            alertBuilder.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                Firebase.auth.signOut()
+                val intent =
+                    Intent(activity, ProfileFragment::class.java)
+
+                startActivity(intent)
+            }
+            alertBuilder.setNeutralButton(getString(R.string.cancel))
+            { _, _ ->
+            }
+            alertBuilder.show()
+        }
+
+
     }
 }

@@ -12,12 +12,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.taskmanager.data.local.Pref
 import com.example.taskmanager.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val pref: Pref by lazy{
+    private val pref: Pref by lazy {
         Pref(this)
     }
 
@@ -31,8 +32,16 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
-       if (!pref.isOnBoardingShow())
-        navController.navigate(R.id.onBoardingFragment)
+        navController.navigate(R.id.authFragment)
+
+        if (!pref.isOnBoardingShow())
+            navController.navigate(R.id.onBoardingFragment)
+
+        if (FirebaseAuth.getInstance().currentUser?.uid == null) {
+           // navController.navigate(R.id.phoneFragment)
+        }
+
+
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -45,21 +54,25 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        navController.addOnDestinationChangedListener(object : NavController.OnDestinationChangedListener {
-            override fun onDestinationChanged(
-                controller: NavController,
-                destination: NavDestination,
-                arguments: Bundle?
-            ) {
-                if (destination.id == R.id.onBoardingFragment){
+
+        val fragmentWithoutBottomNav = setOf(
+            R.id.onBoardingFragment,
+            R.id.phoneFragment,
+            R.id.verifyFragment,
+            R.id.authFragment
+
+        )
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+
+            if (fragmentWithoutBottomNav.contains(destination.id)){
                     navView.isVisible = false
                     supportActionBar?.hide()
-                }else{
-                    navView.isVisible = true
-                    supportActionBar?.show()
-                }
-            }
+                }else {
+                navView.isVisible = true
+                supportActionBar?.show()
 
-        })
+                }
+
+        }
     }
 }

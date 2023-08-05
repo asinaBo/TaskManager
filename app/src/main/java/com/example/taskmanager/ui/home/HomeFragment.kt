@@ -16,7 +16,7 @@ import com.example.taskmanager.model.Task
 import com.example.taskmanager.ui.task.adapter.TaskAdapter
 import com.example.taskmanager.utils.extension.showToas
 
-class HomeFragment : Fragment(),TaskAdapter.Listener {
+class HomeFragment : Fragment(), TaskAdapter.Listener {
 
     private var _binding: FragmentHomeBinding? = null
     private var adapter = TaskAdapter(this@HomeFragment)
@@ -71,7 +71,7 @@ class HomeFragment : Fragment(),TaskAdapter.Listener {
         alertBuilder.show()
     }
 
-    companion object{
+    companion object {
         const val TASK_KEY = " task.key"
     }
 }

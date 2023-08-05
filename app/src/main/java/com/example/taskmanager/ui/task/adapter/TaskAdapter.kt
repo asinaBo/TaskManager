@@ -83,7 +83,5 @@ class TaskAdapter(private val listener: Listener) : RecyclerView.Adapter<TaskAda
         interface Listener{
             fun  onLongClickItem(task : Task)
             fun onClickItem(task: Task)
-
-
     }
 }
