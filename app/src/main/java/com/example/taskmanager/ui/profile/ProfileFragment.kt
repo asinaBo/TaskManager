@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.fragment.findNavController
 import com.example.taskmanager.R
 import com.example.taskmanager.data.local.Pref
 import com.example.taskmanager.databinding.FragmentProfileBinding
@@ -65,16 +66,13 @@ class ProfileFragment : Fragment() {
             launcher.launch(intent)
 
         }
-        binding.btnExit.setOnClickListener {
+        binding.imExit.setOnClickListener {
             val alertBuilder = AlertDialog.Builder(requireContext())
             alertBuilder.setTitle(getString(R.string.exit))
             alertBuilder.setMessage(getString(R.string.exit_msg))
             alertBuilder.setPositiveButton(getString(R.string.yes)) { _, _ ->
-                Firebase.auth.signOut()
-                val intent =
-                    Intent(activity, ProfileFragment::class.java)
-
-                startActivity(intent)
+                FirebaseAuth.getInstance().signOut()
+                findNavController().navigate(R.id.authFragment)
             }
             alertBuilder.setNeutralButton(getString(R.string.cancel))
             { _, _ ->

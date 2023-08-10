@@ -52,15 +52,16 @@ class PhoneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.btnSend.setOnClickListener {
+            val phone = binding.tilPhone.prefixText.toString() + binding.etPhone.text.toString()
             val options = PhoneAuthOptions.newBuilder(auth)
-                .setPhoneNumber(binding.etPhone.text.toString()) // Phone number to verify
+                .setPhoneNumber(phone) // Phone number to verify
                 .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                 .setActivity(requireActivity()) // Activity (for callback binding)
                 .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
                 .build()
             PhoneAuthProvider.verifyPhoneNumber(options)
-
 
         }
     }

@@ -17,4 +17,5 @@
     <string name="exit">exit</string>
     <string name="exit_msg">Are you sure to exit</string>
     <string name="cancel">Cancel</string>
+    <string name="not_name">Notification</string>
 </resources>

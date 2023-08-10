@@ -7,13 +7,13 @@
     tools:context=".ui.profile.ProfileFragment">
 
 
-    <Button
-        android:id="@+id/btn_exit"
+    <ImageView
+        android:id="@+id/im_exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Exit"
+        android:padding="16dp"
+        android:src="@drawable/ic_exit"
         android:textColor="@color/black"
-        android:background="?android:attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

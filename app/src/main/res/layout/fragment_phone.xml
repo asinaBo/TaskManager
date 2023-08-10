@@ -7,11 +7,12 @@
     tools:context=".ui.auth.phone.PhoneFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_label2"
+        android:id="@+id/til_phone"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        app:prefixText="+996"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +21,6 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_phone"
-            android:text="+996"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter phone number" />
@@ -33,7 +33,7 @@
         android:text="Send"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_label2"
+        app:layout_constraintTop_toBottomOf="@+id/til_phone"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 
